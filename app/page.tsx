@@ -1,3 +1,4 @@
+import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 
 export default function Home() {
@@ -13,6 +14,11 @@ export default function Home() {
                     <p>Prettier</p>
                     <p>Tailwind CSS</p>
                     <p>Husky</p>
+                    <Button>
+                        <a href='https://ui.shadcn.com/' target='_blank'>
+                            Shadcn UI
+                        </a>
+                    </Button>
                 </div>
             </main>
         </div>

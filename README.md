@@ -1,14 +1,21 @@
 # Project Title
 
-Boilerplate for NextJS project
+Boilerplate for NextJS 14 (App Router) project
 
 ## Overview
 
-This is a NextJS boilerplate project. It includes TypeScript, ESLint, Prettier, and Tailwind CSS. The project structure is organized for efficient development and easy scalability.
+It includes:
+
+-   Typescript
+-   Tailwind CSS
+-   Eslint
+-   Prettier
+-   Husky
+-   Shadcn ui
 
 ## Getting Started
 
-Instructions for setting up the project locally.
+1.  Clone repository
 
 ## Development
 
