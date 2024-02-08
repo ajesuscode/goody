@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button';
-import Image from 'next/image';
+import Link from 'next/link';
 
 export default function Home() {
     return (
@@ -9,6 +9,9 @@ export default function Home() {
                     NEXT JS 14 Boilerplate
                 </h1>
                 <div className='grid lg:grid-flow-col md:grid-flow-row gap-4 text-2xl'>
+                    <Link href='/login'>
+                        <Button variant='outline'>Supabase Auth</Button>
+                    </Link>
                     <p>TypeScript</p>
                     <p>ESLint</p>
                     <p>Prettier</p>
