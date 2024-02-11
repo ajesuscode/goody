@@ -6,9 +6,8 @@ import './globals.css';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-    title: 'NextJS/Supabase',
-    description:
-        'Boilerplate setup for NextJS and Supabase Auth with a Server Side',
+    title: 'Goody',
+    description: 'Interactive Stimulation for the KIDS',
 };
 
 export default function RootLayout({

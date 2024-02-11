@@ -2,7 +2,12 @@ import Link from 'next/link';
 
 import { UserLoginForm } from './components/LoginForm';
 
-export default function LoginPage() {
+export default function LoginPage({
+    searchParams,
+}: {
+    searchParams?: { success?: boolean };
+}) {
+    const success = searchParams?.success || false;
     return (
         <>
             <div className='md:hidden'>
