@@ -49,3 +49,14 @@ export async function signup(formData: FormData) {
     revalidatePath('/', 'layout');
     redirect('/login?success=true');
 }
+
+export async function logout() {
+    console.log('logging out');
+    const cookieStore = cookies();
+    const supabase = createClient(cookieStore);
+
+    await supabase.auth.signOut();
+
+    revalidatePath('/', 'layout');
+    redirect('/');
+}
