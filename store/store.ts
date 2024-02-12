@@ -1,22 +1,22 @@
 import { create } from 'zustand';
 import { devtools, persist } from 'zustand/middleware';
 
-interface AuthState {
-    isAuthorized: boolean;
-    setIsAuthorized: (bool: boolean) => void;
+interface ModalState {
+    isAddKidOpen: boolean;
+    setIsAddKidOpen: (bool: boolean) => void;
 }
 
-export const useGoodyStore = create<AuthState>()(
+export const useModalStore = create<ModalState>()(
     devtools(
         persist(
             (set) => ({
-                isAuthorized: false,
-                setIsAuthorized: (bool) =>
+                isAddKidOpen: false,
+                setIsAddKidOpen: (bool) =>
                     set((state) => ({
-                        isAuthorized: (state.isAuthorized = bool),
+                        isAddKidOpen: (state.isAddKidOpen = bool),
                     })),
             }),
-            { name: 'authStore' }
+            { name: 'modalStore' }
         )
     )
 );
