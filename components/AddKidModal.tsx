@@ -24,6 +24,7 @@ export function AddKidModal() {
 
     async function handleAddKid() {
         if (!kidName || kidName === '') {
+            setIsAddKidOpen(!isAddKidOpen);
             return;
         }
         const newKid = await addNewKid(kidName);

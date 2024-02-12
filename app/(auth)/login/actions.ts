@@ -25,7 +25,7 @@ export async function login(formData: FormData) {
     }
 
     revalidatePath('/', 'layout');
-    redirect('/private');
+    redirect('/game');
 }
 
 export async function signup(formData: FormData) {

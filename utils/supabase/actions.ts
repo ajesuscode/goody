@@ -1,7 +1,23 @@
 'use server';
 
 import { createClient } from '@/utils/supabase/server';
+import { revalidatePath } from 'next/cache';
 import { cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
+
+export async function getAllKids() {
+    const cookieStore = cookies();
+    const supabase = createClient(cookieStore);
+
+    const { data, error } = await supabase.from('kids').select('*');
+
+    if (error) {
+        console.log(error);
+        return error;
+    }
+
+    return data;
+}
 
 export async function addNewKid(kidName: string) {
     const cookieStore = cookies();
@@ -16,7 +32,7 @@ export async function addNewKid(kidName: string) {
         totalRewards: 0,
     };
 
-    const { data, error } = await supabase.from('kids').insert([
+    const { error } = await supabase.from('kids').insert([
         {
             user_id: newKid.user_id,
             name: newKid.name,
@@ -28,5 +44,6 @@ export async function addNewKid(kidName: string) {
         return error;
     }
 
-    return data;
+    revalidatePath('/games', 'layout');
+    redirect('/game');
 }
