@@ -1,6 +1,10 @@
-import GoodyHeader from '@/components/header/Header';
+import GoodyHeader from '@/components/header/GoodyHeader';
+import { getUser } from '@/utils/supabase/actions';
+import { createClient } from '@/utils/supabase/server';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
+import { cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
 
 import './globals.css';
 
@@ -11,7 +15,7 @@ export const metadata: Metadata = {
     description: 'Interactive Stimulation for the KIDS',
 };
 
-export default function RootLayout({
+export default async function RootLayout({
     children,
 }: {
     children: React.ReactNode;

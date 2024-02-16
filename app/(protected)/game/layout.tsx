@@ -1,6 +1,6 @@
 import { KidsCard } from '@/components/Kids/KidsCard';
 import { NoKidsCard } from '@/components/Kids/NoKidsCard';
-import { getAllKids } from '@/utils/supabase/actions';
+import { getAllKids, getUser } from '@/utils/supabase/actions';
 import { createClient } from '@/utils/supabase/server';
 import type { Metadata } from 'next';
 import { cookies } from 'next/headers';
@@ -17,11 +17,8 @@ export default async function GameLayout({
 }: {
     children: React.ReactNode;
 }) {
-    const cookieStore = cookies();
-    const supabase = createClient(cookieStore);
-
-    const { data, error } = await supabase.auth.getUser();
-    if (error || !data?.user) {
+    const user = await getUser();
+    if (!user) {
         redirect('/login');
     }
 

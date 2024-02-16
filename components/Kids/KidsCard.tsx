@@ -3,7 +3,6 @@ import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 export function KidsCard({ kid }: { kid: Kids }) {
-    console.log(kid);
     return (
         <Card>
             <CardContent className='pt-4 relative'>

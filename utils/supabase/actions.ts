@@ -5,10 +5,17 @@ import { revalidatePath } from 'next/cache';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
+export async function getUser() {
+    const cookieStore = cookies();
+    const supabase = createClient(cookieStore);
+    const { data } = await supabase.auth.getUser();
+
+    return data.user;
+}
+
 export async function getAllKids() {
     const cookieStore = cookies();
     const supabase = createClient(cookieStore);
-
     const { data, error } = await supabase.from('kids').select('*');
 
     if (error) {

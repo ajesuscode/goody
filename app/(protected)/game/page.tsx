@@ -1,3 +1,3 @@
-export default async function PrivatePage() {
+export default async function GamePage() {
     return <div></div>;
 }

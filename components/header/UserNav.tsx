@@ -19,11 +19,7 @@ import Link from 'next/link';
 
 import { AddKidModal } from '../AddKidModal';
 
-interface UserNavProps {
-    user: User | null;
-}
-
-export function UserNav({ user }: UserNavProps) {
+export function UserNav({ user }: { user: User | null }) {
     const isAddKidOpen = useModalStore((state) => state.isAddKidOpen);
     const setIsAddKidOpen = useModalStore((state) => state.setIsAddKidOpen);
 
