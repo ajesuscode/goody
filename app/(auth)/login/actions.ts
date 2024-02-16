@@ -24,8 +24,8 @@ export async function login(formData: FormData) {
         redirect('/error');
     }
 
-    revalidatePath('/', 'layout');
-    redirect('/private');
+    revalidatePath('layout');
+    redirect('/game');
 }
 
 export async function signup(formData: FormData) {
@@ -57,6 +57,6 @@ export async function logout() {
 
     await supabase.auth.signOut();
 
-    revalidatePath('/', 'layout');
+    revalidatePath('layout');
     redirect('/');
 }

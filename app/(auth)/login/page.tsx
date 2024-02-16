@@ -1,12 +1,18 @@
+import { getUser } from '@/utils/supabase/actions';
 import Link from 'next/link';
+import { redirect } from 'next/navigation';
 
 import { UserLoginForm } from './components/LoginForm';
 
-export default function LoginPage({
+export default async function LoginPage({
     searchParams,
 }: {
     searchParams?: { success?: boolean };
 }) {
+    const user = await getUser();
+    if (user) {
+        redirect('/game');
+    }
     const success = searchParams?.success || false;
     return (
         <>
@@ -15,13 +21,12 @@ export default function LoginPage({
                     <div className='absolute inset-0 bg-zinc-900' />
                     <div className='relative z-20 flex items-center text-lg font-medium'>
                         {/* HERE CAN BE AN SVG LOGO */}
-                        <Link href='/'>Your App Name</Link>
+                        <Link href='/'>Goody</Link>
                     </div>
                     <div className='relative z-20 mt-auto'>
                         <blockquote className='space-y-2'>
                             <p className='text-lg'>
-                                &ldquo;Thanx Shadcn for a awesome components
-                                library.&rdquo;
+                                &ldquo;Motivational game for a family&rdquo;
                             </p>
                             <footer className='text-sm'>
                                 <a
