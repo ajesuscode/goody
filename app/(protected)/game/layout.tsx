@@ -25,7 +25,7 @@ export default async function GameLayout({
     const kids = await getAllKids();
 
     return (
-        <div className='p-4 flex flex-col justify-between items-center gap-8'>
+        <div className='p-4 flex flex-col justify-start items-center gap-8 h-[calc(100vh-64px)]'>
             {Array.isArray(kids) && kids.length > 0 ? (
                 <div className='flex flex-row justify-between items-center gap-20'>
                     {kids.map((kid: Kids) => (

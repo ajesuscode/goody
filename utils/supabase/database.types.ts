@@ -9,6 +9,38 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      goals: {
+        Row: {
+          id: string
+          rewards: number | null
+          time_allowed: number | null
+          title: string | null
+          user_id: string | null
+        }
+        Insert: {
+          id?: string
+          rewards?: number | null
+          time_allowed?: number | null
+          title?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          id?: string
+          rewards?: number | null
+          time_allowed?: number | null
+          title?: string | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "goals_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "rootusers"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
       kids: {
         Row: {
           id: string
@@ -37,6 +69,42 @@ export type Database = {
             columns: ["user_id"]
             isOneToOne: false
             referencedRelation: "rootusers"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
+      kidsgoals: {
+        Row: {
+          goal_id: string | null
+          id: string
+          isdone: boolean | null
+          kid_id: string | null
+        }
+        Insert: {
+          goal_id?: string | null
+          id?: string
+          isdone?: boolean | null
+          kid_id?: string | null
+        }
+        Update: {
+          goal_id?: string | null
+          id?: string
+          isdone?: boolean | null
+          kid_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "kidsgoals_goal_id_fkey"
+            columns: ["goal_id"]
+            isOneToOne: false
+            referencedRelation: "goals"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "kidsgoals_kid_id_fkey"
+            columns: ["kid_id"]
+            isOneToOne: false
+            referencedRelation: "kids"
             referencedColumns: ["id"]
           }
         ]
