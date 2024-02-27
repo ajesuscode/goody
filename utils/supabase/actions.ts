@@ -26,6 +26,20 @@ export async function getAllKids() {
     return data;
 }
 
+export async function getSingleKid(kidId: string) {
+    const cookieStore = cookies();
+    const supabase = createClient(cookieStore);
+    const { data, error } = await supabase
+        .from('kids')
+        .select('*')
+        .eq('id', kidId)
+        .single();
+    if (error) {
+        console.log(error);
+    }
+    return data;
+}
+
 export async function addNewKid(kidName: string) {
     const cookieStore = cookies();
     const supabase = createClient(cookieStore);
