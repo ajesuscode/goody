@@ -19,7 +19,13 @@ import { useModalStore } from '@/store/store';
 import { addKidGoal } from '@/utils/supabase/actions';
 import { useState } from 'react';
 
-export function AddGameModal({ kidId }: { kidId: string }) {
+export function AddGameModal({
+    kidId,
+    kidName,
+}: {
+    kidId: string;
+    kidName?: string | null;
+}) {
     const isAddGameOpen = useModalStore((state) => state.isGameOpen);
     const setIsAddGameOpen = useModalStore((state) => state.setIsGameOpen);
     const [gameName, setGameName] = useState('');
@@ -43,7 +49,12 @@ export function AddGameModal({ kidId }: { kidId: string }) {
             <DialogTrigger asChild></DialogTrigger>
             <DialogContent className='sm:max-w-[425px]'>
                 <DialogHeader>
-                    <DialogTitle>Add Game for Kid</DialogTitle>
+                    {kidName ? (
+                        <DialogTitle>Add Game for {kidName}</DialogTitle>
+                    ) : (
+                        <DialogTitle>Add Game for Kids</DialogTitle>
+                    )}
+
                     <DialogDescription>
                         Fill the form. Click save when you're done.
                     </DialogDescription>
@@ -60,12 +71,18 @@ export function AddGameModal({ kidId }: { kidId: string }) {
                             onChange={(e) => setGameName(e.target.value)}
                         />
                     </div>
-                    <Label htmlFor='name' className=''>
-                        Time to play
-                    </Label>
+                    <div className='flex items-start justify-between gap-4'>
+                        <Label htmlFor='name' className=''>
+                            Set Minutes
+                        </Label>
+                        <Label htmlFor='minutes' className='col-span-3'>
+                            {timeToPlay} min.
+                        </Label>
+                    </div>
+
                     <Slider
                         defaultValue={timeToPlay}
-                        max={100}
+                        max={60}
                         step={5}
                         className={cn('')}
                         onValueChange={(value) => setTimeToPlay(value)}
@@ -73,7 +90,7 @@ export function AddGameModal({ kidId }: { kidId: string }) {
                 </div>
                 <DialogFooter>
                     <Button type='submit' onClick={handleAddGame}>
-                        Save changes
+                        Add Game
                     </Button>
                 </DialogFooter>
             </DialogContent>
