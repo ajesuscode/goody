@@ -26,6 +26,20 @@ export async function getAllKids() {
     return data;
 }
 
+export async function getSingleKid(kidId: string) {
+    const cookieStore = cookies();
+    const supabase = createClient(cookieStore);
+    const { data, error } = await supabase
+        .from('kids')
+        .select('*')
+        .eq('id', kidId)
+        .single();
+    if (error) {
+        console.log(error);
+    }
+    return data;
+}
+
 export async function addNewKid(kidName: string) {
     const cookieStore = cookies();
     const supabase = createClient(cookieStore);
@@ -53,4 +67,99 @@ export async function addNewKid(kidName: string) {
 
     revalidatePath('/games', 'layout');
     redirect('/game');
+}
+
+export async function getKidGoals(kidId: string) {
+    const cookieStore = cookies();
+    const supabase = createClient(cookieStore);
+    const { data, error } = await supabase
+        .from('kidsgoals')
+        .select(
+            `
+            *,
+            goals!inner(title, rewards, time_allowed)
+        `
+        )
+        .eq('kid_id', kidId);
+
+    if (error) {
+        console.log('THIS IS ERROR', error);
+        return error;
+    }
+
+    revalidatePath(`/games/${kidId}`, 'layout');
+
+    console.log('data', data);
+    return data;
+}
+
+//ADDING A GOAL TO SPECIFIC KID
+export async function addKidGoal(
+    goalTitle: string,
+    timeAllowed: number,
+    kidId?: string
+) {
+    const cookieStore = cookies();
+    const supabase = createClient(cookieStore);
+
+    // we need user id
+    const {
+        data: { user },
+        error: err,
+    } = await supabase.auth.getUser();
+    if (err) {
+        return err;
+    }
+
+    // creating a goal
+    const { data, error } = await supabase
+        .from('goals')
+        .insert({
+            time_allowed: timeAllowed,
+            title: goalTitle,
+            user_id: user?.id,
+            rewards: 10,
+        })
+        .select('id');
+    if (error) {
+        return error;
+    }
+
+    if (data) {
+        // assigning created goal to a kid
+
+        const { data: kidGoal, error } = await supabase
+            .from('kidsgoals')
+            .insert([{ goal_id: data[0]?.id, kid_id: kidId, isdone: false }])
+            .select();
+
+        if (error) {
+            console.log('Inserting error', error);
+            return error;
+        }
+        //maybe return ok to handle it in the component
+
+        revalidatePath(`/games/${kidId}`, 'layout');
+    }
+}
+
+export async function getUndoneGoals() {
+    const cookieStore = cookies();
+    const supabase = createClient(cookieStore);
+    const { data, error } = await supabase
+        .from('kidsgoals')
+        .select(
+            `
+            *,
+            goals!inner(title, rewards, time_allowed)
+        `
+        )
+        .eq('isdone', false);
+
+    if (error) {
+        console.log('THIS IS ERROR', error);
+        return error;
+    }
+    revalidatePath(`/games/`);
+    return data;
 }

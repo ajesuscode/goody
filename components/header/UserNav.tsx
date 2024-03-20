@@ -17,15 +17,23 @@ import { useModalStore } from '@/store/store';
 import { User } from '@supabase/supabase-js';
 import Link from 'next/link';
 
+import { AddGameModal } from '../AddGameModal';
 import { AddKidModal } from '../AddKidModal';
 
 export function UserNav({ user }: { user: User | null }) {
     const isAddKidOpen = useModalStore((state) => state.isAddKidOpen);
     const setIsAddKidOpen = useModalStore((state) => state.setIsAddKidOpen);
+    const setIsAddGameOpen = useModalStore((state) => state.setIsGameOpen);
 
+    //modal to add new kid
     const handleAddKidModalOpen = () => {
         setIsAddKidOpen(!isAddKidOpen);
     };
+
+    //modal to add games to all kids
+    function handleAddGameModalOpen() {
+        setIsAddGameOpen(true);
+    }
 
     const handleSignOut = async () => {
         await logout();
@@ -74,6 +82,12 @@ export function UserNav({ user }: { user: User | null }) {
                                     onClick={handleAddKidModalOpen}
                                 >
                                     Add Kid
+                                    <DropdownMenuShortcut></DropdownMenuShortcut>
+                                </DropdownMenuItem>
+                                <DropdownMenuItem
+                                    onClick={handleAddGameModalOpen}
+                                >
+                                    Add Game
                                     <DropdownMenuShortcut></DropdownMenuShortcut>
                                 </DropdownMenuItem>
                                 <DropdownMenuItem>
