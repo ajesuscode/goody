@@ -142,3 +142,24 @@ export async function addKidGoal(
         revalidatePath(`/games/${kidId}`, 'layout');
     }
 }
+
+export async function getUndoneGoals() {
+    const cookieStore = cookies();
+    const supabase = createClient(cookieStore);
+    const { data, error } = await supabase
+        .from('kidsgoals')
+        .select(
+            `
+            *,
+            goals!inner(title, rewards, time_allowed)
+        `
+        )
+        .eq('isdone', false);
+
+    if (error) {
+        console.log('THIS IS ERROR', error);
+        return error;
+    }
+    revalidatePath(`/games/`);
+    return data;
+}

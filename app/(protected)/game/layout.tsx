@@ -1,9 +1,7 @@
 import { KidsCard } from '@/components/Kids/KidsCard';
 import { NoKidsCard } from '@/components/Kids/NoKidsCard';
 import { getAllKids, getUser } from '@/utils/supabase/actions';
-import { createClient } from '@/utils/supabase/server';
 import type { Metadata } from 'next';
-import { cookies } from 'next/headers';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
 

@@ -3,6 +3,8 @@
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import { getSingleKid } from '@/utils/supabase/actions';
+import { useEffect, useState } from 'react';
 
 interface GameCardProps {
     goal: {
@@ -20,10 +22,20 @@ interface GameCardProps {
 }
 
 export default function GameCard({ goal, kid }: GameCardProps) {
+    const [kidName, setKidName] = useState<string | null>(null);
+    useEffect(() => {
+        async function getKidName() {
+            if (kid) {
+                const kidName = await getSingleKid(kid);
+                setKidName(kidName?.name ?? null);
+            }
+        }
+        getKidName();
+    }, []);
     return (
         <div className='border rounded-lg p-4 flex flex-col justify-between gap-2 items-center'>
             <div className='flex flex-row justify-between w-full items-center gap-4'>
-                <Badge>{kid}</Badge>
+                <Badge>{kidName}</Badge>
                 <Badge
                     className={cn(goal.isdone ? 'bg-lime-400' : 'bg-red-400')}
                 >
