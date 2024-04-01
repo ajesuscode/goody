@@ -1,0 +1,36 @@
+name: Lint and Build on Push
+
+# Run this workflow on push events to the main or development branch
+on:
+  push:
+    branches:
+      - main
+      - development
+
+jobs:
+  build-and-lint:
+    runs-on: ubuntu-latest
+
+    # Install Node.js
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      # Install dependencies
+      - name: Install dependencies
+        run: npm ci
+
+      # Run lint script
+      - name: Run lint
+        run: npm run lint
+
+      # Run type script
+      - name: Run type checks
+        run: npm run type
+
+      # Run build script
+      - name: Run build
+        run: npm run build
