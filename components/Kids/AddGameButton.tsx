@@ -5,10 +5,10 @@ import { PlusCircleIcon } from 'lucide-react';
 
 import { Button } from '../ui/button';
 
-export function AddGameButton() {
+export function AddGameButton(): JSX.Element {
     const setIsAddGameOpen = useModalStore((state) => state.setIsGameOpen);
 
-    function handleAddGameModalOpen() {
+    function handleAddGameModalOpen(): void {
         setIsAddGameOpen(true);
     }
     return (

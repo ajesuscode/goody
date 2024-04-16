@@ -8,12 +8,13 @@ export default async function LoginPage({
     searchParams,
 }: {
     searchParams?: { success?: boolean };
-}) {
+}): Promise<JSX.Element> {
     const user = await getUser();
     if (user) {
         redirect('/game');
     }
     const success = searchParams?.success || false;
+    console.log(success);
     return (
         <>
             <div className='container relative h-[800px] flex-col items-center justify-center grid lg:max-w-none lg:grid-cols-2 lg:px-0'>

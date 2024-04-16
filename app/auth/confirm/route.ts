@@ -3,7 +3,7 @@ import { type EmailOtpType } from '@supabase/supabase-js';
 import { cookies } from 'next/headers';
 import { type NextRequest, NextResponse } from 'next/server';
 
-export async function GET(request: NextRequest) {
+export async function GET(request: NextRequest): Promise<NextResponse> {
     const cookieStore = cookies();
 
     const { searchParams } = new URL(request.url);

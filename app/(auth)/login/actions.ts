@@ -5,7 +5,7 @@ import { revalidatePath } from 'next/cache';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
-export async function login(formData: FormData) {
+export async function login(formData: FormData): Promise<void> {
     const cookieStore = cookies();
     const supabase = createClient(cookieStore);
 
@@ -28,7 +28,7 @@ export async function login(formData: FormData) {
     redirect('/game');
 }
 
-export async function signup(formData: FormData) {
+export async function signup(formData: FormData): Promise<void> {
     const cookieStore = cookies();
     const supabase = createClient(cookieStore);
 
@@ -50,7 +50,7 @@ export async function signup(formData: FormData) {
     redirect('/login?success=true');
 }
 
-export async function logout() {
+export async function logout(): Promise<void> {
     console.log('logging out');
     const cookieStore = cookies();
     const supabase = createClient(cookieStore);

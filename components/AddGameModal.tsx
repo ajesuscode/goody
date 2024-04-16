@@ -3,7 +3,6 @@
 import { Button } from '@/components/ui/button';
 import {
     Dialog,
-    DialogClose,
     DialogContent,
     DialogDescription,
     DialogFooter,
@@ -25,13 +24,13 @@ export function AddGameModal({
 }: {
     kidId: string;
     kidName?: string | null;
-}) {
+}): JSX.Element {
     const isAddGameOpen = useModalStore((state) => state.isGameOpen);
     const setIsAddGameOpen = useModalStore((state) => state.setIsGameOpen);
     const [gameName, setGameName] = useState('');
     const [timeToPlay, setTimeToPlay] = useState<number[]>([0]);
 
-    async function handleAddGame() {
+    async function handleAddGame(): Promise<void> {
         if (!gameName || gameName === '' || timeToPlay[0] === 0) {
             setIsAddGameOpen(!isAddGameOpen);
             return;
@@ -56,7 +55,7 @@ export function AddGameModal({
                     )}
 
                     <DialogDescription>
-                        Fill the form. Click save when you're done.
+                        Fill the form. Click save when you&apos;re done.
                     </DialogDescription>
                 </DialogHeader>
                 <div className='grid gap-4 py-4'>

@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 import { UserNav } from './UserNav';
 
-export default async function GoodyHeader() {
+export default async function GoodyHeader(): Promise<JSX.Element> {
     const user = await getUser();
     return (
         <div className='sticky flex justify-between items-center p-4 top-0 border-b h-64px'>

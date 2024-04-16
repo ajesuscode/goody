@@ -1,6 +1,7 @@
 import { type CookieOptions, createServerClient } from '@supabase/ssr';
 import { type cookies } from 'next/headers';
 
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export function createClient(cookieStore: ReturnType<typeof cookies>) {
     return createServerClient<Database>(
         process.env.NEXT_PUBLIC_SUPABASE_URL!,

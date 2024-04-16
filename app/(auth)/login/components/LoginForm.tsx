@@ -6,9 +6,12 @@ import * as React from 'react';
 
 import { login, signup } from '../actions';
 
-interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
+type UserAuthFormProps = React.HTMLAttributes<HTMLDivElement>;
 
-export function UserLoginForm({ className, ...props }: UserAuthFormProps) {
+export function UserLoginForm({
+    className,
+    ...props
+}: UserAuthFormProps): JSX.Element {
     return (
         <div className={cn('grid gap-6', className)} {...props}>
             <form>

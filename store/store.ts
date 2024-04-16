@@ -14,11 +14,12 @@ export const useModalStore = create<ModalState>()(
             (set) => ({
                 isAddKidOpen: false,
                 isGameOpen: false,
-                setIsAddKidOpen: (bool) =>
+                setIsAddKidOpen: (bool): void =>
                     set((state) => ({
                         isAddKidOpen: (state.isAddKidOpen = bool),
                     })),
-                setIsGameOpen: (bool) => set((state) => ({ isGameOpen: bool })),
+                setIsGameOpen: (bool): void =>
+                    set(() => ({ isGameOpen: bool })),
             }),
             { name: 'modalStore' }
         )

@@ -3,10 +3,10 @@
 import { Button } from '@/components/ui/button';
 import { useModalStore } from '@/store/store';
 
-export function NoGames({ kid }: { kid: string | null }) {
+export function NoGames({ kid }: { kid: string | null }): JSX.Element {
     const setIsAddGameOpen = useModalStore((state) => state.setIsGameOpen);
 
-    function handleAddGameModalOpen() {
+    function handleAddGameModalOpen(): void {
         setIsAddGameOpen(true);
     }
 

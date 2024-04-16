@@ -1,8 +1,8 @@
-import { getAllKids, getUndoneGoals } from '@/utils/supabase/actions';
+import { getUndoneGoals } from '@/utils/supabase/actions';
 
 import GameCard from './component/GameCard';
 
-export default async function GamePage() {
+export default async function GamePage(): Promise<JSX.Element> {
     const undoneGoals = await getUndoneGoals();
 
     return (

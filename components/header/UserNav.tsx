@@ -17,25 +17,21 @@ import { useModalStore } from '@/store/store';
 import { User } from '@supabase/supabase-js';
 import Link from 'next/link';
 
-import { AddGameModal } from '../AddGameModal';
 import { AddKidModal } from '../AddKidModal';
 
-export function UserNav({ user }: { user: User | null }) {
+export function UserNav({ user }: { user: User | null }): JSX.Element {
     const isAddKidOpen = useModalStore((state) => state.isAddKidOpen);
     const setIsAddKidOpen = useModalStore((state) => state.setIsAddKidOpen);
-    const setIsAddGameOpen = useModalStore((state) => state.setIsGameOpen);
-
-    //modal to add new kid
-    const handleAddKidModalOpen = () => {
+    const handleAddKidModalOpen = (): void => {
         setIsAddKidOpen(!isAddKidOpen);
     };
 
-    //modal to add games to all kids
-    function handleAddGameModalOpen() {
-        setIsAddGameOpen(true);
-    }
+    // //modal to add games to all kids
+    // function handleAddGameModalOpen(): void {
+    //     setIsAddGameOpen(true);
+    // }
 
-    const handleSignOut = async () => {
+    const handleSignOut = async (): Promise<void> => {
         await logout();
     };
 
@@ -84,12 +80,12 @@ export function UserNav({ user }: { user: User | null }) {
                                     Add Kid
                                     <DropdownMenuShortcut></DropdownMenuShortcut>
                                 </DropdownMenuItem>
-                                <DropdownMenuItem
+                                {/* <DropdownMenuItem
                                     onClick={handleAddGameModalOpen}
                                 >
                                     Add Game
                                     <DropdownMenuShortcut></DropdownMenuShortcut>
-                                </DropdownMenuItem>
+                                </DropdownMenuItem> */}
                                 <DropdownMenuItem>
                                     Profile
                                     <DropdownMenuShortcut>

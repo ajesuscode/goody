@@ -2,7 +2,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
-export function KidsCard({ kid }: { kid: Kids }) {
+export function KidsCard({ kid }: { kid: Kids }): JSX.Element {
     return (
         <Card>
             <CardContent className='pt-4 relative'>

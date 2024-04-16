@@ -21,17 +21,17 @@ interface GameCardProps {
     kid: string | null;
 }
 
-export default function GameCard({ goal, kid }: GameCardProps) {
+export default function GameCard({ goal, kid }: GameCardProps): JSX.Element {
     const [kidName, setKidName] = useState<string | null>(null);
     useEffect(() => {
-        async function getKidName() {
+        async function getKidName(): Promise<void> {
             if (kid) {
                 const kidName = await getSingleKid(kid);
                 setKidName(kidName?.name ?? null);
             }
         }
         getKidName();
-    }, []);
+    }, [kid]);
     return (
         <div className='border rounded-lg p-4 flex flex-col justify-between gap-2 items-center'>
             <div className='flex flex-row justify-between w-full items-center gap-4'>

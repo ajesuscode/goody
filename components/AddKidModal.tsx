@@ -3,7 +3,6 @@
 import { Button } from '@/components/ui/button';
 import {
     Dialog,
-    DialogClose,
     DialogContent,
     DialogDescription,
     DialogFooter,
@@ -17,12 +16,12 @@ import { useModalStore } from '@/store/store';
 import { addNewKid } from '@/utils/supabase/actions';
 import { useState } from 'react';
 
-export function AddKidModal() {
+export function AddKidModal(): JSX.Element {
     const isAddKidOpen = useModalStore((state) => state.isAddKidOpen);
     const setIsAddKidOpen = useModalStore((state) => state.setIsAddKidOpen);
     const [kidName, setKidName] = useState('');
 
-    async function handleAddKid() {
+    async function handleAddKid(): Promise<void> {
         if (!kidName || kidName === '') {
             setIsAddKidOpen(!isAddKidOpen);
             return;
@@ -40,7 +39,7 @@ export function AddKidModal() {
                 <DialogHeader>
                     <DialogTitle>Add Kid to the Game</DialogTitle>
                     <DialogDescription>
-                        Fill the form. Click save when you're done.
+                        Fill the form. Click save when you&apos;re done.
                     </DialogDescription>
                 </DialogHeader>
                 <div className='grid gap-4 py-4'>

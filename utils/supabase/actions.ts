@@ -1,11 +1,12 @@
 'use server';
 
 import { createClient } from '@/utils/supabase/server';
+import { User } from '@supabase/supabase-js';
 import { revalidatePath } from 'next/cache';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
-export async function getUser() {
+export async function getUser(): Promise<User | null> {
     const cookieStore = cookies();
     const supabase = createClient(cookieStore);
     const { data } = await supabase.auth.getUser();
@@ -13,7 +14,7 @@ export async function getUser() {
     return data.user;
 }
 
-export async function getAllKids() {
+export async function getAllKids(): Promise<unknown> {
     const cookieStore = cookies();
     const supabase = createClient(cookieStore);
     const { data, error } = await supabase.from('kids').select('*');
@@ -26,7 +27,7 @@ export async function getAllKids() {
     return data;
 }
 
-export async function getSingleKid(kidId: string) {
+export async function getSingleKid(kidId: string): Promise<Kids | null> {
     const cookieStore = cookies();
     const supabase = createClient(cookieStore);
     const { data, error } = await supabase
@@ -40,7 +41,7 @@ export async function getSingleKid(kidId: string) {
     return data;
 }
 
-export async function addNewKid(kidName: string) {
+export async function addNewKid(kidName: string): Promise<unknown> {
     const cookieStore = cookies();
     const supabase = createClient(cookieStore);
     const {
@@ -69,7 +70,7 @@ export async function addNewKid(kidName: string) {
     redirect('/game');
 }
 
-export async function getKidGoals(kidId: string) {
+export async function getKidGoals(kidId: string): Promise<unknown> {
     const cookieStore = cookies();
     const supabase = createClient(cookieStore);
     const { data, error } = await supabase
@@ -98,7 +99,7 @@ export async function addKidGoal(
     goalTitle: string,
     timeAllowed: number,
     kidId?: string
-) {
+): Promise<unknown> {
     const cookieStore = cookies();
     const supabase = createClient(cookieStore);
 
@@ -128,7 +129,7 @@ export async function addKidGoal(
     if (data) {
         // assigning created goal to a kid
 
-        const { data: kidGoal, error } = await supabase
+        const { error } = await supabase
             .from('kidsgoals')
             .insert([{ goal_id: data[0]?.id, kid_id: kidId, isdone: false }])
             .select();
@@ -143,7 +144,7 @@ export async function addKidGoal(
     }
 }
 
-export async function getUndoneGoals() {
+export async function getUndoneGoals(): Promise<unknown> {
     const cookieStore = cookies();
     const supabase = createClient(cookieStore);
     const { data, error } = await supabase

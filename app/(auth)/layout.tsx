@@ -9,7 +9,7 @@ export default function AuthenticationLayout({
     children,
 }: {
     children: React.ReactNode;
-}) {
+}): JSX.Element {
     return (
         <div className='flex flex-col justify-center items-center min-h-screen p-12 overflow-hidden'>
             {children}

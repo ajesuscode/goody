@@ -1,13 +1,15 @@
 import { AddGameModal } from '@/components/AddGameModal';
 import { AddGameButton } from '@/components/Kids/AddGameButton';
-import { Button } from '@/components/ui/button';
 import { getKidGoals, getSingleKid } from '@/utils/supabase/actions';
-import { PlusCircleIcon } from 'lucide-react';
 
 import GameCard from '../component/GameCard';
 import { NoGames } from '../component/NoGames';
 
-export default async function KidPage({ params }: { params: { id: string } }) {
+export default async function KidPage({
+    params,
+}: {
+    params: { id: string };
+}): Promise<JSX.Element> {
     const kidId = params.id;
     const kid = await getSingleKid(kidId);
     const kidGoals = await getKidGoals(kidId);

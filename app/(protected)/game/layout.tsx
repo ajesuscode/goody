@@ -14,7 +14,7 @@ export default async function GameLayout({
     children,
 }: {
     children: React.ReactNode;
-}) {
+}): Promise<JSX.Element> {
     const user = await getUser();
     if (!user) {
         redirect('/login');

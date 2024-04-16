@@ -2,15 +2,14 @@
 
 import { useModalStore } from '@/store/store';
 
-import { AddKidModal } from '../AddKidModal';
 import { Button } from '../ui/button';
 
-export function NoKidsCard() {
+export function NoKidsCard(): JSX.Element {
     const isAddKidOpen = useModalStore((state) => state.isAddKidOpen);
     const setIsAddKidOpen = useModalStore((state) => state.setIsAddKidOpen);
     console.log(isAddKidOpen, setIsAddKidOpen);
 
-    function handleAddKidModalOpen() {
+    function handleAddKidModalOpen(): void {
         setIsAddKidOpen(!isAddKidOpen);
     }
     return (
