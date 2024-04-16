@@ -1,0 +1,39 @@
+name: Production Deployment
+
+on:
+    release:
+        types: [published]
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+
+        steps:
+            - uses: actions/checkout@v4
+
+            - name: Build Docker Image
+              run: docker build -t goody .
+
+            - name: Log in to Docker Hub
+              run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+
+            - name: Push Docker Image
+              run: docker push goody
+
+    deploy:
+        needs: build
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Deploy to Production Server
+              env:
+                  PRODUCTION_SERVER_HOST: ${{ secrets.PRODUCTION_SERVER_HOST }}
+                  PRODUCTION_SERVER_USER: ${{ secrets.PRODUCTION_SERVER_USER }}
+                  PRODUCTION_SERVER_PRIVATE_KEY: ${{ secrets.PRODUCTION_SERVER_PRIVATE_KEY }}
+              run: |
+                  mkdir -p ~/.ssh/
+                  echo "$PRODUCTION_SERVER_PRIVATE_KEY" > ~/.ssh/production.key
+                  chmod 600 ~/.ssh/production.key
+                  ssh-keyscan -H $PRODUCTION_SERVER_HOST >> ~/.ssh/known_hosts
+                  scp -i ~/.ssh/production.key -r ./docker-compose.yml $PRODUCTION_SERVER_USER@$PRODUCTION_SERVER_HOST:/home/code/goody_prod
+                  ssh -i ~/.ssh/production.key $PRODUCTION_SERVER_USER@$PRODUCTION_SERVER_HOST "/home/code/goody_prod/deploy.sh"
