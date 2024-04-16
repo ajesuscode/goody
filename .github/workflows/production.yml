@@ -9,6 +9,9 @@ jobs:
         runs-on: ubuntu-latest
 
         steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+
             - name: Set up Docker Buildx
               uses: docker/setup-buildx-action@v2
 
@@ -21,11 +24,8 @@ jobs:
             - name: Build and push
               uses: docker/build-push-action@v4
               with:
-                  context: ./
-                  file: ./Dockerfile
+                  context: .
                   push: true
-                  tags: ${{ secrets.DOCKER_USERNAME }}/boot-back:${{ github.sha }}, ${{ secrets.DOCKER_USERNAME }}/boot-back:latest
-                  platforms: linux/arm64
 
     deploy:
         needs: build
