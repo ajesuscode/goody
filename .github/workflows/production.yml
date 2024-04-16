@@ -26,6 +26,8 @@ jobs:
               with:
                   context: .
                   push: true
+                  tags: ${{ secrets.DOCKER_USERNAME }}/boot-back:${{ github.sha }}, ${{ secrets.DOCKER_USERNAME }}/boot-back:latest
+                  platforms: linux/arm64
 
     deploy:
         needs: build
