@@ -13,7 +13,7 @@ jobs:
 
             - name: Create Release
               id: create_release
-              uses: actions/create-release@v4
+              uses: actions/create-release@v3
               env:
                   GITHUB_TOKEN: ${{ secrets.GOODY_RELEASE_TOKEN }}
               with:
