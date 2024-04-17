@@ -47,6 +47,6 @@ jobs:
                   echo "$PRODUCTION_SERVER_PRIVATE_KEY" > ~/.ssh/production.key
                   chmod 600 ~/.ssh/production.key
                   ssh-keyscan -H $PRODUCTION_SERVER_HOST >> ~/.ssh/known_hosts
-                  scp -i ~/.ssh/production.key -r ./docker-compose.yml $PRODUCTION_SERVER_USER@$PRODUCTION_SERVER_HOST:/home/code/goody_prod
+                  scp -i ~/.ssh/production.key -r ./docker-compose.yml ./Dockerfile $PRODUCTION_SERVER_USER@$PRODUCTION_SERVER_HOST:/home/code/goody_prod
                   ssh -i ~/.ssh/production.key $PRODUCTION_SERVER_USER@$PRODUCTION_SERVER_HOST "chmod +x /home/code/goody_prod/deploy.sh"
                   ssh -i ~/.ssh/production.key $PRODUCTION_SERVER_USER@$PRODUCTION_SERVER_HOST "/home/code/goody_prod/deploy.sh"
