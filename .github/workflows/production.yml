@@ -49,3 +49,4 @@ jobs:
                   ssh-keyscan -H $PRODUCTION_SERVER_HOST >> ~/.ssh/known_hosts
                   scp -i ~/.ssh/production.key -r ./docker-compose.yml $PRODUCTION_SERVER_USER@$PRODUCTION_SERVER_HOST:/home/code/goody_prod
                   ssh -i ~/.ssh/production.key $PRODUCTION_SERVER_USER@$PRODUCTION_SERVER_HOST "chmod +x /home/code/goody_prod/deploy.sh"
+                  ssh -i ~/.ssh/production.key $PRODUCTION_SERVER_USER@$PRODUCTION_SERVER_HOST "/home/code/goody_prod/deploy.sh"
