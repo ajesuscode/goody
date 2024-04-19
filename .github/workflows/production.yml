@@ -57,4 +57,4 @@ jobs:
                   scp -i ~/.ssh/production.key docker-compose.yml $PRODUCTION_SERVER_USER@$PRODUCTION_SERVER_HOST:/home/code/goody_prod/
 
                   # Execute Docker Compose
-                  ssh -i ~/.ssh/production.key $PRODUCTION_SERVER_USER@$PRODUCTION_SERVER_HOST "cd /home/code/goody_prod && docker-compose up -d"
+                  ssh -i ~/.ssh/production.key $PRODUCTION_SERVER_USER@$PRODUCTION_SERVER_HOST "cd /home/code/goody_prod && docker compose up -d"
