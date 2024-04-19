@@ -1,7 +1,7 @@
 version: '3.8'
 services:
     app:
-        image: ajesuscode/goody:latest
+        image: ajesuscode/goody:${IMAGE_TAG}
         container_name: goody_app
         ports:
             - '3000:3000'
