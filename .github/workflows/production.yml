@@ -7,7 +7,6 @@ on:
 jobs:
     build:
         runs-on: ubuntu-latest
-
         steps:
             - name: Checkout
               uses: actions/checkout@v4
@@ -32,19 +31,14 @@ jobs:
     deploy:
         needs: build
         runs-on: ubuntu-latest
-
         steps:
             - name: Checkout
               uses: actions/checkout@v4
 
-            - name: Copy .env file
+            - name: Create .env.local file
               run: |
-                  mkdir -p goody_prod
-                  cp .env goody_prod/
-
-            - name: Copy docker-compose file
-              run: |
-                  cp docker-compose.yml goody_prod/
+                  echo "NEXT_PUBLIC_SUPABASE_URL=${{ secrets.SUPABASE_URL }}" > .env.local
+                  echo "NEXT_PUBLIC_SUPABASE_ANON_KEY=${{ secrets.SUPABASE_KEY }}" >> .env.local
 
             - name: Deploy to Production Server
               env:
@@ -52,9 +46,15 @@ jobs:
                   PRODUCTION_SERVER_USER: ${{ secrets.PRODUCTION_SERVER_USER }}
                   PRODUCTION_SERVER_PRIVATE_KEY: ${{ secrets.PRODUCTION_SERVER_PRIVATE_KEY }}
               run: |
+                  # Setup SSH
                   mkdir -p ~/.ssh/
                   echo "$PRODUCTION_SERVER_PRIVATE_KEY" > ~/.ssh/production.key
                   chmod 600 ~/.ssh/production.key
                   ssh-keyscan -H $PRODUCTION_SERVER_HOST >> ~/.ssh/known_hosts
-                  scp -i ~/.ssh/production.key -r goody_prod $PRODUCTION_SERVER_USER@$PRODUCTION_SERVER_HOST:/home/code/
+
+                  # Secure Copy to Server
+                  scp -i ~/.ssh/production.key .env.local $PRODUCTION_SERVER_USER@$PRODUCTION_SERVER_HOST:/home/code/goody_prod/
+                  scp -i ~/.ssh/production.key docker-compose.yml $PRODUCTION_SERVER_USER@$PRODUCTION_SERVER_HOST:/home/code/goody_prod/
+
+                  # Execute Docker Compose
                   ssh -i ~/.ssh/production.key $PRODUCTION_SERVER_USER@$PRODUCTION_SERVER_HOST "cd /home/code/goody_prod && docker-compose up -d"
