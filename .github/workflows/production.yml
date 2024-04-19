@@ -37,6 +37,15 @@ jobs:
             - name: Checkout
               uses: actions/checkout@v4
 
+            - name: Copy .env file
+              run: |
+                  mkdir -p goody_prod
+                  cp .env goody_prod/
+
+            - name: Copy docker-compose file
+              run: |
+                  cp docker-compose.yml goody_prod/
+
             - name: Deploy to Production Server
               env:
                   PRODUCTION_SERVER_HOST: ${{ secrets.PRODUCTION_SERVER_HOST }}
@@ -47,6 +56,5 @@ jobs:
                   echo "$PRODUCTION_SERVER_PRIVATE_KEY" > ~/.ssh/production.key
                   chmod 600 ~/.ssh/production.key
                   ssh-keyscan -H $PRODUCTION_SERVER_HOST >> ~/.ssh/known_hosts
-                  scp -i ~/.ssh/production.key -r ./docker-compose.yml ./Dockerfile ./package.json $PRODUCTION_SERVER_USER@$PRODUCTION_SERVER_HOST:/home/code/goody_prod
-                  ssh -i ~/.ssh/production.key $PRODUCTION_SERVER_USER@$PRODUCTION_SERVER_HOST "chmod +x /home/code/goody_prod/deploy.sh"
-                  ssh -i ~/.ssh/production.key $PRODUCTION_SERVER_USER@$PRODUCTION_SERVER_HOST "/home/code/goody_prod/deploy.sh"
+                  scp -i ~/.ssh/production.key -r goody_prod $PRODUCTION_SERVER_USER@$PRODUCTION_SERVER_HOST:/home/code/
+                  ssh -i ~/.ssh/production.key $PRODUCTION_SERVER_USER@$PRODUCTION_SERVER_HOST "cd /home/code/goody_prod && docker-compose up -d"
