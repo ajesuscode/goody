@@ -2,6 +2,7 @@ version: '3.8'
 services:
     app:
         image: ajesuscode/goody:latest
+        container_name: goody_app
         ports:
             - '3000:3000'
         volumes:
