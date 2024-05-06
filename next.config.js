@@ -3,9 +3,16 @@ const nextConfig = {
     output: 'standalone',
     experimental: {
         serverActions: {
-            allowedOrigins: ['103.241.67.124:3000'],
+            allowedOrigins: [
+                'https://103.241.67.124:3000',
+                'app.ajesuscode.com',
+            ],
         },
     },
 };
 
-module.exports = nextConfig;
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+    enabled: process.env.ANALYZE === 'true',
+});
+
+module.exports = withBundleAnalyzer(nextConfig);
