@@ -53,12 +53,12 @@ jobs:
                   ssh-keyscan -H $PRODUCTION_SERVER_HOST >> ~/.ssh/known_hosts
 
                   # Secure Copy to Server
-                  scp -i ~/.ssh/production.key .env.local $PRODUCTION_SERVER_USER@$PRODUCTION_SERVER_HOST:/home/code/goody_prod/
-                  scp -i ~/.ssh/production.key docker-compose.yml $PRODUCTION_SERVER_USER@$PRODUCTION_SERVER_HOST:/home/code/goody_prod/
+                  scp -i ~/.ssh/production.key .env.local $PRODUCTION_SERVER_USER@$PRODUCTION_SERVER_HOST:/home/jesus/goody_prod/
+                  scp -i ~/.ssh/production.key docker-compose.yml $PRODUCTION_SERVER_USER@$PRODUCTION_SERVER_HOST:/home/jesus/goody_prod/
 
                   ssh -i ~/.ssh/production.key $PRODUCTION_SERVER_USER@$PRODUCTION_SERVER_HOST "
                   export IMAGE_TAG=${{ github.sha }}  # Set the image tag to the current commit SHA
-                  cd /home/code/goody_prod && 
+                  cd /home/jesus/goody_prod && 
                   docker compose pull &&
                   docker compose down &&
                   docker compose up -d
