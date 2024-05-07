@@ -6,6 +6,6 @@ services:
         ports:
             - '3000:3000'
         volumes:
-            - /home/code/goody_prod/.env.local:/app/.env.local
+            - /home/jesus/goody_prod/.env.local:/app/.env.local
         environment:
             - NODE_ENV=production
