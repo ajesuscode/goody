@@ -3,10 +3,7 @@ const nextConfig = {
     output: 'standalone',
     experimental: {
         serverActions: {
-            allowedOrigins: [
-                'https://103.241.67.124:3000',
-                'app.ajesuscode.com',
-            ],
+            allowedOrigins: ['app.ajesuscode.com'],
         },
     },
 };
